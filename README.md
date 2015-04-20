@@ -2,9 +2,9 @@
 ____
 #Appcelerator Titanium Alloy Mobile - Parse Starter Template w/REST Service
 
-This approach differs from the previous template in that we focus on using the Parse REST API instead of the JavaScript API. The work is is based on work done by Stephen Feather and other on creating the initial gist that I have derived the parseREST service from. I have made additional updates to the parseREST service and will continue to make changes to the application to make for a better starter template as an alternative to Appcelerator Cloud Services
+This approach differs from the previous template in that we focus on using the [Parse REST API](https://www.parse.com/docs/rest) instead of the JavaScript API. The work is is [based on work done by Stephen Feather](https://gist.github.com/sfeather/4400387) and other on creating the initial gist that I have derived the parseREST service from. I have made additional updates to the parseREST service and will continue to make changes to the application to make for a better starter template as an alternative to Appcelerator Cloud Services
 
-[Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg)
+Subscribe to the video channel [Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg), for additional updates on this and other Appcelerator Services and Templates
 
 ####Screenshot of Users Objects
 [![Appcelerator Alloy](images/parse_users.png)](http://appcelerator.com/alloy/)
