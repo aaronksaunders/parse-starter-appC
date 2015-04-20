@@ -20,9 +20,16 @@ Logging in a existing user; notice the integration of promises into the service 
 ````Javascript
 parseService.loginUser("aaronsaunders", "password").then(function(_result) {
     console.log(JSON.stringify(_result, null, 2));
-}).then(function(_sessions) {
 }, function(_error){
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
+});
+````
+If you have logged in previously, you can restore the user's session without logging in
+````Javascript
+parseService.restoreUser().then(function(_result) {
+    console.log(JSON.stringify(_result, null, 2));
+}, function(_error){
+    Ti.API.error('ERROR: No session currently exists - ' + JSON.stringify(_error, null, 2));
 });
 ````
 
