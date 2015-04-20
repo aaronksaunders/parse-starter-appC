@@ -6,6 +6,26 @@ This approach differs from the previous template in that we focus on using the [
 
 Subscribe to the video channel [Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg), for additional updates on this and other Appcelerator Services and Templates
 
+````Javascript
+// add library to project
+var parseService = require('parseREST');
+
+// set the API Credentials
+parseService.init({
+    appId : '',
+    apiKey : ''
+});
+````
+Logging in a existing user; notice the integration of promises into the service to provide for a cleaner architecture
+````Javascript
+parseService.loginUser("aaronsaunders", "password").then(function(_result) {
+    console.log(JSON.stringify(_result, null, 2));
+}).then(function(_sessions) {
+}, function(_error){
+    Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
+});
+````
+
 ####Screenshot of Users Objects
 [![Appcelerator Alloy](images/parse_users.png)](http://appcelerator.com/alloy/)
 
