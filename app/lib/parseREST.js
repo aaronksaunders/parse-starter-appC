@@ -177,6 +177,23 @@ ParseClient.prototype.loginUser = function(_username, _password) {
     return deferred.promise;
 };
 
+ParseClient.prototype.logoutUser = function() {
+    var deferred = Q.defer();
+
+    var url = baseURL + 'logout;
+
+    this._request(url, null).then(function(_response) {
+        var response = _response.response;
+        parse.setSessionToken(null);
+        parse.saveUserRecord(null);
+        return deferred.resolve(response);
+    }, function(_error) {
+        return deferred.reject(_error);
+    });
+
+    return deferred.promise;
+};
+
 /**
  * @TODO - not updating saved user object
  */
