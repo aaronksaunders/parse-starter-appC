@@ -6,6 +6,7 @@ This approach differs from the previous template in that we focus on using the [
 
 Subscribe to the video channel [Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg), for additional updates on this and other Appcelerator Services and Templates
 
+###Working with Users
 ````Javascript
 // add library to project
 var parseService = require('parseREST');
@@ -32,7 +33,24 @@ parseService.restoreUser().then(function(_result) {
     Ti.API.error('ERROR: No session currently exists - ' + JSON.stringify(_error, null, 2));
 });
 ````
-
+###Working with Objects
+See objects below; but querying the objects are pretty straight forward and url parameters that are documented in the [Parse REST API documentation](https://www.parse.com/docs/rest) can be passed in using the `urlparams` property on the `params` method variable
+````Javascript
+var _urlparams = {
+    include : 'user,tutor,place', // return child objects for relationships
+    limit : 5                     // only return the first 5 elements
+};
+var params = {
+    'urlparams' : _urlparams
+};
+parseService.getObjects('TutorSession', params).then(function(_queryResult){
+  _.each(_queryResult.response.results, function(element) {
+    console.log(JSON.stringify(element));
+  });
+}, function(_error){
+    console.log("Some Error Happened: " + JSON.stringify(_error));
+});
+````
 ####Screenshot of Users Objects
 [![Appcelerator Alloy](images/parse_users.png)](http://appcelerator.com/alloy/)
 
