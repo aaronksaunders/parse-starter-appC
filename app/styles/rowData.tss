@@ -1,0 +1,26 @@
+// the rowData.tss is used to style and layout the table rows
+".container" : {
+	layout : 'vertical',
+	height : Titanium.UI.SIZE
+}
+// specify ui element with '#' before id, this
+// sets the styling for the name element
+"#name" : {
+	left : '5dp',
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	font : {
+		fontSize : '18dp'
+	}
+}
+// this sets styling for location, 2dp below
+// the name label in the row
+"#location" : {
+	top:'2dp',
+	left : '5dp',
+	width : Titanium.UI.SIZE,
+	height : Titanium.UI.SIZE,
+	font : {
+		fontSize : '16dp'
+	}	
+}

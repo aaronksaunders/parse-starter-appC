@@ -1,0 +1,29 @@
+".container": {
+	backgroundColor: "white"
+}
+
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#000"
+}
+
+".listLabel": {
+	left : '5dp',
+	font: {
+		fontSize: 12
+	}
+}
+
+"#templateWrapper": {
+	top: '5dp',
+	layout: 'vertical',
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	left: '2dp',
+	right: '2dp'
+}
+
+"#listView[Android]": {
+	separatorColor : 'gray',
+}
