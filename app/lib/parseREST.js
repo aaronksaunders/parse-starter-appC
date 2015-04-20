@@ -1,11 +1,11 @@
-//
+/**
 // Copyright Aaron K. Saunders and other contributors. 2015
 //
 // Primarily based on work by Stephen Feather - https://gist.github.com/sfeather/4400387
 // with additions listed below
 // - added promise functionality (https://github.com/kriskowal/q), and removing callbacks
 // - added url query param support to allow for more interesting queries
-// - added promises.notify to support in progress information from http request
+// - added promises notify to support in progress information from http request
 // - added init function to extract credentials from the library
 // - fare number of the user functions are not correct
 // - clean up parameter naming
@@ -28,6 +28,7 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 /**
  * Usage:
@@ -160,6 +161,11 @@ ParseClient.prototype.getUser = function(_userId, callback) {
     return this._request(url, callback);
 };
 
+ParseClient.prototype.restoreUser = function() {
+    var url = baseURL + 'users/me';
+    return this._request(url);
+};
+
 ParseClient.prototype.loginUser = function(_username, _password) {
     var deferred = Q.defer();
 
@@ -176,11 +182,10 @@ ParseClient.prototype.loginUser = function(_username, _password) {
 
     return deferred.promise;
 };
-
 ParseClient.prototype.logoutUser = function() {
     var deferred = Q.defer();
 
-    var url = baseURL + 'logout;
+    var url = baseURL + 'logout';
 
     this._request(url, null).then(function(_response) {
         var response = _response.response;
@@ -336,7 +341,7 @@ ParseClient.prototype._request = function(url, params, callback) {
     xhr.onload = function() {
         callback && callback(1, this.responseText, this.status);
         deferred.resolve({
-            response : this.responseText ? JSON.parse(this.responseText) : {},
+            response : (this.responseText ? JSON.parse(this.responseText) : {}),
             status : this.status
         });
     };
