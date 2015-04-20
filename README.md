@@ -34,7 +34,7 @@ parseService.restoreUser().then(function(_result) {
 });
 ````
 ###Working with Objects
-See objects below; but querying the objects are pretty straight forward and url parameters that are documented in the [Parse REST API documentation](https://www.parse.com/docs/rest) can be passed in using the `urlparams` property on the `params` method variable
+[See objects below](#screenshot-of-tutor-sessions-objects); but querying the objects are pretty straight forward and url parameters that are documented in the [Parse REST API documentation](https://www.parse.com/docs/rest) can be passed in using the `urlparams` property on the `params` method variable
 ````Javascript
 var _urlparams = {
     include : 'user,tutor,place', // return child objects for relationships
