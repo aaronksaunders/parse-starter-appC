@@ -6,7 +6,8 @@ This approach differs from the previous template in that we focus on using the [
 
 Subscribe to the video channel [Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg), for additional updates on this and other Appcelerator Services and Templates
 
-###Working with Users
+###Working with the Service
+Please note that this implementation does not require a sync adapter, the service returns javascript objects. If you want to use the data-binding capabilities of Appcelerator Titanium Alloy, you can always just create a Model or Collection with the results
 ````Javascript
 // add library to project
 var parseService = require('parseREST');
@@ -17,6 +18,7 @@ parseService.init({
     apiKey : ''
 });
 ````
+###Working with Users
 Logging in a existing user; notice the integration of promises into the service to provide for a cleaner architecture
 ````Javascript
 parseService.loginUser("aaronsaunders", "password").then(function(_result) {
@@ -53,6 +55,10 @@ parseService.getObjects('TutorSession', params).then(function(_queryResult){
     console.log("Some Error Happened: " + JSON.stringify(_error));
 });
 ````
+As mentioned above, if you want to work with Alloy Collections, you can just set the Collection with the results
+``` Javascript
+var collection  =  Alloy.createColllection('Sessions',_queryResult.response.results);
+```
 ####Screenshot of Users Objects
 [![Appcelerator Alloy](images/parse_users.png)](http://appcelerator.com/alloy/)
 
