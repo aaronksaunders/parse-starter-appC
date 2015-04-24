@@ -186,6 +186,9 @@ ParseClient.prototype.logoutUser = function() {
     var deferred = Q.defer();
 
     var url = baseURL + 'logout';
+    var params : {
+        method : "POST"
+    }
 
     this._request(url, null).then(function(_response) {
         var response = _response.response;
@@ -347,8 +350,13 @@ ParseClient.prototype._request = function(url, params, callback) {
     };
 
     //params = params.replace(/\./g, '_');
-
-    params.url = encodeData(params.urlparams, params.url);
+    
+    if(params.urlparams && params.urlparams.where){
+    	var whereParams = params.urlparams.where;
+        params.url = params.url + "?" + "where=" + JSON.stringify(whereParams);
+    }else{
+    	params.url = encodeData(params.urlparams, params.url);
+    }
 
     Ti.API.debug('params.url: ' + params.url);
 
