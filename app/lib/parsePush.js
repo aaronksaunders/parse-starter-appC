@@ -14,16 +14,31 @@ Ti.App.addEventListener('resumed', function() {
 
 var deviceToken;
 var channels = [];
+var userId = null;
+
 /**
  * Registers device for push notifications and then registers the device on Parse
  * with the default channels
  * @param {Array} channels
+ * @params {String} _userId
  */
-function registerPush(_channels) {
+function registerPush(_channels, _userId) {
     Ti.API.info("Registering device channels > " + JSON.stringify(_channels));
 
+    // UserId is required parameter for associating the Parse Installation
+    // Object. We use the user id so we are able to send push notifications
+    // to specific users.
+    if (!_userId) {
+        throw "Cannot Register Push Notifications without User Id";
+        return;
+    }
+    
+    
     //clean
     channels = [];
+
+    // set user id which is used with the parse Installation Object
+    userId = _userId;
 
     //assign channel
     channels.push(_channels);
@@ -72,25 +87,7 @@ function registerPush(_channels) {
 function receivePush(e) {
     Ti.API.info('Received push: ' + JSON.stringify(e));
 
-    //if clicks push tray, it will take to alert list page
-    //*******************************************************
-    // REMOVE APPLICATION SPECIFIC CODE FROM LIBRARY
-    /*
-     if (currentUser.get("role") == "patient") {
-     var alertCtrlPatient = Alloy.createController("alerts_patient").getView();
-     alertCtrlPatient.left = Alloy.Globals.pW;
-     alertCtrlPatient.open(Alloy.Globals.slideLeft);
-     }else if(currentUser.get("role") == "others"){
-     var alertCtrlOthers = Alloy.createController("alerts_patient").getView();
-     alertCtrlOthers.left = Alloy.Globals.pW;
-     alertCtrlOthers.open(Alloy.Globals.slideLeft);
-     }else if(currentUser.get("role") == "doctor"){
-     var alertCtrlDoctor = Alloy.createController("alert_patient").getView();
-     alertCtrlDoctor.left = Alloy.Globals.pW;
-     alertCtrlDoctor.open(Alloy.Globals.slideLeft);
-     }
-     */
-    OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
+    Ti.App.fireEvent("parse.push.recieved", e);
 
 }
 
@@ -116,7 +113,7 @@ function deviceTokenSuccess(e) {
                 "appName" : Titanium.App.name,
                 "appVersion" : Titanium.App.version,
                 "installationId" : Ti.Platform.createUUID(),
-                "userId" : Alloy.Models.instance("user").get("objectId")
+                "userId" : userId
             }
         };
     } else {
@@ -132,7 +129,7 @@ function deviceTokenSuccess(e) {
             notificationReceive : receivePush,
             body : {
                 "deviceType" : "android",
-                "userId" : Alloy.Models.instance("user").get("objectId")
+                "userId" : userId
             }
         };
     }
@@ -155,7 +152,6 @@ function deviceTokenError(e) {
     alert('Failed to register for push notifications! ' + e.error);
 }
 
-
 module.exports = {
     registerPush : registerPush,
-}; 
+};

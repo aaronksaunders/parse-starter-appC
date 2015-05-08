@@ -77,5 +77,25 @@ parseService.restoreUser("aaronsaunders", "password").then(function(_result) {
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
 });
 
+
+Ti.App.addEventListener("parse.push.recieved", function(_event) {
+    //if clicks push tray, it will take to alert list page
+
+    if (currentUser.get("role") == "patient") {
+        var alertCtrlPatient = Alloy.createController("alerts_patient").getView();
+        alertCtrlPatient.left = Alloy.Globals.pW;
+        alertCtrlPatient.open(Alloy.Globals.slideLeft);
+    } else if (currentUser.get("role") == "others") {
+        var alertCtrlOthers = Alloy.createController("alerts_patient").getView();
+        alertCtrlOthers.left = Alloy.Globals.pW;
+        alertCtrlOthers.open(Alloy.Globals.slideLeft);
+    } else if (currentUser.get("role") == "doctor") {
+        var alertCtrlDoctor = Alloy.createController("alert_patient").getView();
+        alertCtrlDoctor.left = Alloy.Globals.pW;
+        alertCtrlDoctor.open(Alloy.Globals.slideLeft);
+    }
+
+    OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
+});
 // open the view
 $.index.open();

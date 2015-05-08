@@ -318,6 +318,7 @@ ParseClient.prototype.registerPush = function(_params, callback) {
 
 // -- functions below here not fully functional/tested  send push notification --
 // @TODO - clean this up!!
+// @TODO - add support for where queries
 ParseClient.prototype.sendPush = function(_params, callback) {
 
     var url = baseURL + 'push';
