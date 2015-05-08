@@ -13,6 +13,9 @@
     <analytics>true</analytics>
     <guid>5dfa6c7f-a3ff-4d2c-80c5-48413d22f862</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="Parse_AppId">1i57t6dY5qkhVOohl0U9qsAxNOdyVQk5Xqb8Pexlu4</property>
+    <property name="Parse_ClientKey">2CXdHqoYN1pt96EqMgUcuLELicKuHbcAoXAUF0OSf5</property>
+    <property name="Parse_RESTAPIKey">3jdLkQiB4Yhy9amL9HgTSk5oPISIhgeYDoYgAnmOG6</property>    
     <ios>
         <plist>
             <dict>
@@ -38,7 +41,16 @@
             </dict>
         </plist>
     </ios>
-    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <property name="ti.android.bug2373.finishfalseroot" type="bool">true</property>
+        <tool-api-level>14</tool-api-level>
+        <manifest android:versionCode="1" android:versionName="1.0.0">
+            <uses-sdk android:targetSdkVersion="14"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        </manifest>
+    </android>
     <mobileweb>
         <precache/>
         <splash>
@@ -47,7 +59,9 @@
         </splash>
         <theme>default</theme>
     </mobileweb>
-    <modules/>
+    <modules>
+    <module platform="android" version="0.6">eu.rebelcorp.parse</module>
+  </modules>
     <deployment-targets>
         <target device="android">true</target>
         <target device="blackberry">false</target>

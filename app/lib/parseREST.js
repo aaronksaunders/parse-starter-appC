@@ -1,34 +1,34 @@
 /**
-// Copyright Aaron K. Saunders and other contributors. 2015
-//
-// Primarily based on work by Stephen Feather - https://gist.github.com/sfeather/4400387
-// with additions listed below
-// - added promise functionality (https://github.com/kriskowal/q), and removing callbacks
-// - added url query param support to allow for more interesting queries
-// - added promises notify to support in progress information from http request
-// - added init function to extract credentials from the library
-// - fare number of the user functions are not correct
-// - clean up parameter naming
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ // Copyright Aaron K. Saunders and other contributors. 2015
+ //
+ // Primarily based on work by Stephen Feather - https://gist.github.com/sfeather/4400387
+ // with additions listed below
+ // - added promise functionality (https://github.com/kriskowal/q), and removing callbacks
+ // - added url query param support to allow for more interesting queries
+ // - added promises notify to support in progress information from http request
+ // - added init function to extract credentials from the library
+ // - fare number of the user functions are not correct
+ // - clean up parameter naming
+ //
+ // Permission is hereby granted, free of charge, to any person obtaining a
+ // copy of this software and associated documentation files (the
+ // "Software"), to deal in the Software without restriction, including
+ // without limitation the rights to use, copy, modify, merge, publish,
+ // distribute, sublicense, and/or sell copies of the Software, and to permit
+ // persons to whom the Software is furnished to do so, subject to the
+ // following conditions:
+ //
+ // The above copyright notice and this permission notice shall be included
+ // in all copies or substantial portions of the Software.
+ //
+ // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ // OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+ // NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+ // USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /**
  * Usage:
@@ -48,8 +48,8 @@
 var Q = require('q');
 
 var baseURL = 'https://api.parse.com/1/',
-    appIdd,
-    apiKey;
+    appId,
+    apiRESTKey;
 
 // Be sure to use your REST API key and NOT your master as bad stuff can happen.
 
@@ -58,8 +58,12 @@ function ParseClient() {
 }
 
 ParseClient.prototype.init = function(_config) {
-    appId = _config.appId,
-    apiKey = _config.apiKey;
+    appId = _config.appId || Ti.App.Properties.getString('Parse_AppId');
+    apiRESTKey = _config.apiRESTKey || Ti.App.Properties.getString('Parse_RESTAPIKey');
+    if (!appId || !apiRESTKey) {
+        Ti.API.error('ParseClient Missing Credentials');
+        alert('ParseClient Missing Credentials');
+    }
 };
 ParseClient.prototype.saveUserRecord = function(user) {
     Ti.App.Properties.setObject('parseUser', user);
@@ -100,7 +104,8 @@ ParseClient.prototype.updateObject = function(_class, _objectID, data, callback)
 ParseClient.prototype.getObjects = function(_class, _params, callback) {
     var url = baseURL + 'classes/' + _class;
     var params = {
-        method : 'GET'
+        method : 'GET',
+        body : _params
     };
 
     params = _.extend(params, _params);
@@ -147,9 +152,9 @@ ParseClient.prototype.getUsers = function(_params, callback) {
     var params = {
         method : 'GET',
     };
-    
+
     params = _.extend(params, _params);
-        
+
     return this._request(url, params, callback);
 };
 
@@ -187,7 +192,11 @@ ParseClient.prototype.logoutUser = function() {
 
     var url = baseURL + 'logout';
 
-    this._request(url, null).then(function(_response) {
+    var params = {
+        method : "POST"
+    };
+
+    this._request(url, params, null).then(function(_response) {
         var response = _response.response;
         parse.setSessionToken(null);
         parse.saveUserRecord(null);
@@ -204,6 +213,7 @@ ParseClient.prototype.logoutUser = function() {
  */
 ParseClient.prototype.updateUser = function(_userObject, data, callback) {
     var url = baseURL + 'users/' + _userObject;
+
     var params = {
         method : 'PUT',
         body : data
@@ -254,18 +264,80 @@ ParseClient.prototype.uploadFile = function(_contentType, _filename, _blob, call
 // -- functions below here not fully functional/tested --
 // @TODO - clean this up!!
 
-ParseClient.prototype.registerPush = function(params, callback) {
-    var method = 'POST',
-        url = config.parse.baseUrl + '/installations',
-        payload = (params) ? JSON.stringify(params) : '';
+/**
+ *
+ *
+ * Provide Callbacks for Android interaction
+ *  _params.notificationReceive
+ *  _params.notificationOpen
+ */
+ParseClient.prototype.registerPush = function(_params, callback) {
 
-    return this._request(url, method, payload, function(data, status) {
-        Ti.API.log('completed registration: ' + JSON.stringify(status));
-        callabck(1, data, status);
-    }, function(xhr, error) {
-        Ti.API.log('xhr error registration: ' + JSON.stringify(error));
-        callback(0, error);
-    });
+    var url = baseURL + 'installations';
+
+    var params = {};
+
+    if (OS_IOS) {
+        return this._request(url, {
+            method : "POST",
+            body : _params.body
+        });
+    } else {
+
+        // Android Parse Integration
+        // This requires an Android Module to be included
+        //  gittio install eu.rebelcorp.parse
+        // or https://github.com/timanrebel/Parse/tree/master/android
+        Parse = require('eu.rebelcorp.parse');
+
+        Parse.start();
+
+        Parse.enablePush();
+
+        Parse.addEventListener('notificationreceive', function(e) {
+            _params.notificationReceive && _params.notificationReceive(e);
+        });
+
+        Parse.addEventListener('notificationopen', function(e) {
+            _params.notificationOpen && _params.notificationOpen(e);
+        });
+
+        if (_params.body.channels) {
+            Ti.API.debug('Channels ' + JSON.stringify(_params.body.channels));
+            _params.body.channels.map(function(_c) {
+                Ti.API.debug('subscribeChannel ' + _c);
+                Parse.subscribeChannel(_c);
+            });
+        }
+        callback && callback();
+
+        return Q.when({});
+    }
+
+};
+
+// -- functions below here not fully functional/tested  send push notification --
+// @TODO - clean this up!!
+ParseClient.prototype.sendPush = function(_params, callback) {
+
+    var url = baseURL + 'push';
+
+    console.log("url: " + url);
+    console.log("sendPush _params: " + JSON.stringify(_params));
+
+    var params = {
+        method : "POST",
+        body : {
+            "channels" : _params.channel || [],
+            "data" : {
+                "alert" : _params.alert,
+                "badge" : "Increment"
+            }
+
+        }
+    };
+
+    return this._request(url, params);
 };
 
 /**
@@ -288,6 +360,7 @@ ParseClient.prototype._request = function(url, params, callback) {
 
     // Clean up the call type, defaulting to GET if no method set
     params.method = params.method || 'GET';
+
     params.method = params.method.toUpperCase();
 
     // If not specified, use a 20 second timeout
@@ -297,9 +370,9 @@ ParseClient.prototype._request = function(url, params, callback) {
     params.url = url || baseURL;
     //params.url += url;
     params.headers = params.headers || {};
-    params.headers['X-Parse-Application-Id'] = appId;
-    params.headers['X-Parse-REST-API-Key'] = apiKey;
-    params.headers['X-Parse-Revocable-Session'] = 1;
+    params.headers['X-Parse-Application-Id'] = Ti.App.Properties.getString('Parse_AppId');
+    params.headers['X-Parse-REST-API-Key'] = Ti.App.Properties.getString('Parse_RESTAPIKey');
+    //params.headers['X-Parse-Revocable-Session'] = 1;
     if (!params.headers['Content-Type']) {
         params.headers['Content-Type'] = 'application/json';
     }
@@ -322,48 +395,60 @@ ParseClient.prototype._request = function(url, params, callback) {
 
     var xhr = Ti.Network.createHTTPClient({
         onsendstream : function(e) {
-            Ti.API.debug("progress: " + JSON.stringify(e));
+            //Ti.API.debug("progress: " + JSON.stringify(e));
             deferred.notify(e.progress);
         }
     });
 
     xhr.setTimeout(params.timeout);
+    OS_ANDROID ? xhr.autoEncodeUrl = true : xhr.autoEncodeUrl = true;
 
     xhr.onerror = function(e) {
-        callback && callback(0, this.responseText, this.status, this);
+        Ti.API.error("error: " + JSON.stringify(e));
+        callback && callback(0, xhr.responseText, xhr.status, xhr);
 
-        deferred.reject({
-            error : this.responseText ? JSON.parse(this.responseText) : {},
-            status : this.status
+        return deferred.reject({
+            error : xhr.responseText ? JSON.parse(xhr.responseText) : {},
+            status : xhr.status
         });
     };
 
-    xhr.onload = function() {
-        callback && callback(1, this.responseText, this.status);
-        deferred.resolve({
-            response : (this.responseText ? JSON.parse(this.responseText) : {}),
-            status : this.status
+    xhr.onload = function(e) {
+        Ti.API.info('this.responseText ' + xhr.responseText);
+        callback && callback(1, xhr.responseText, xhr.status);
+        return deferred.resolve({
+            response : (xhr.responseText ? JSON.parse(xhr.responseText) : {}),
+            status : xhr.status
         });
     };
 
     //params = params.replace(/\./g, '_');
 
-    params.url = encodeData(params.urlparams, params.url);
+    //when urlparams has "where" encodeData function not working properly. Below if statement code will make this query call.
+    if (params.urlparams && params.urlparams.where) {
+        params.url = params.url + "?" + "where=" + JSON.stringify(params.urlparams.where);
+    } else {
+        params.url = encodeData(params.urlparams, params.url);
+    }
 
     Ti.API.debug('params.url: ' + params.url);
+    console.log('params.url: ' + params.url);
 
     xhr.open(params.method, params.url);
 
     for (var key in params.headers) {
         xhr.setRequestHeader(key, params.headers[key]);
     }
+
     xhr.send(params.body);
 
     return deferred.promise;
 };
 
 function encodeData(_params, _url) {
+
     var str = [];
+
     for (var p in _params) {
         str.push(Ti.Network.encodeURIComponent(p) + "=" + Ti.Network.encodeURIComponent(_params[p]));
     }
@@ -376,4 +461,4 @@ function encodeData(_params, _url) {
 }
 
 var parse = new ParseClient();
-module.exports = parse;
+module.exports = parse; 

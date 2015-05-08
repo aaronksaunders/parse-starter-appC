@@ -49,7 +49,7 @@ function getTutorSessions() {
  * logging in a user and then testing some of the functionality
  * of the rest service
  */
-parseService.loginUser("aaronsaunders", "password").then(function(_result) {
+parseService.restoreUser("aaronsaunders", "password").then(function(_result) {
     console.log(JSON.stringify(_result, null, 2));
     return getTutorSessions();
 }).then(function(_sessions) {
