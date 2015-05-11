@@ -69,7 +69,7 @@ var collection  =  Alloy.createColllection('Sessions',_queryResult.response.resu
 [![Appcelerator Alloy](images/parse_tutor_sessions.png)](http://appcelerator.com/alloy/)
 
 ###Working with Files
-When workinf with Files in Parse, you have to remember that the only way to get access to the File object after it is created is to associate it with another object. In the example below, we will do this in two steps, first show how to create the file, and then show how to associate it with an object.
+When working with Files in Parse, you have to remember that the only way to get access to the File object after it is created is to associate it with another object. In the example below, we will do this in two steps, first show how to create the file, and then show how to associate it with an object.
 
 ``` Javascript
 var parseService = require('parseREST');
