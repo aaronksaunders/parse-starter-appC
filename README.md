@@ -68,6 +68,54 @@ var collection  =  Alloy.createColllection('Sessions',_queryResult.response.resu
 ####Screenshot of Tutor Sessions Objects
 [![Appcelerator Alloy](images/parse_tutor_sessions.png)](http://appcelerator.com/alloy/)
 
+###Working with Files
+When workinf with Files in Parse, you have to remember that the only way to get access to the File object after it is created is to associate it with another object. In the example below, we will do this in two steps, first show how to create the file, and then show how to associate it with an object.
+
+``` Javascript
+var parseService = require('parseREST');
+parseService.init();
+
+file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "iTunesConnect.png");
+var blob = file.read();
+
+parseService.uploadFile("image/jpeg", "iTunesConnect.png", blob);
+```
+This code will give you back a response object something like this and the file is floating out there in parse and there  is not real way to get the image back.
+
+``` Javascript
+{
+    "name":"tfss-e74daf28-690a-4527-8c64-f99e5641b6e5-iTunesConnect.png",
+    "url":"http://files.parsetfss.com/f875e1c9-4326-4040-afd8-19849220/tfss-e74daf28-iTunesConnect.png"
+}
+```
+A helper method with allow you to upload the file and associate it with a specific object called a FileHelper. This `FileHelper` object will provide access to the image
+```Javascript
+var parseService = require('parseREST');
+parseService.init();
+
+file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "iTunesConnect.png");
+var blob = file.read();
+
+parseService.uploadFile("image/jpeg", "iTunesConnect.png", blob).then(function(_results) {
+	return parseService.createObject('FileHelper', {
+		"nameKey" : _results.response.name,
+		"fileData" : {
+			"name" : _results.response.name,
+			"__type" : "File"
+		}
+}).then(function(_results2) {
+	console.log("FileHelper Object: " + JSON.stringify(_results2));
+},function(_error)
+    console.log("ERROR: " + JSON.stringify(_error));
+});
+```
+The results should look something like this:
+```
+{
+    "createdAt": "2015-05-11T15:30:52.004Z",
+    "objectId": "yLPdeXDinq"
+}
+```
 ----------------------------------
 
 Appcelerator, Appcelerator Titanium and associated marks and logos are 
