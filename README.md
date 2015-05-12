@@ -25,11 +25,8 @@ Please note that this implementation does not require a sync adapter, the servic
 // add library to project
 var parseService = require('parseREST');
 
-// set the API Credentials
-parseService.init({
-    appId : '',
-    apiKey : ''
-});
+// initialize service, keys are set in tiapp.xml
+parseService.init();
 ````
 ###Working with Users
 Logging in a existing user; notice the integration of promises into the service to provide for a cleaner architecture
