@@ -4,6 +4,19 @@ ____
 
 This approach differs from the previous template in that we focus on using the [Parse REST API](https://www.parse.com/docs/rest) instead of the JavaScript API. The work is is [based on work done by Stephen Feather](https://gist.github.com/sfeather/4400387) and other on creating the initial gist that I have derived the parseREST service from. I have made additional updates to the parseREST service and will continue to make changes to the application to make for a better starter template as an alternative to Appcelerator Cloud Services
 
+### Setup For Android Push - Install Android Push Module
+It can be downloaded from here, we only are using it for the Android Parse Push Connectivity
+[https://github.com/timanrebel/Parse](https://github.com/timanrebel/Parse)
+
+### The Application Keys for Parse
+These keys need to be set in `tiapp.xml` the application can use the values passed in on the `parseService.init` call, but these values will not be accessible in the Android Push Module so it is recommended to use the `tiapp.xml` approach.
+```
+<property name="Parse_AppId">Parse_AppId</property>
+<property name="Parse_ClientKey">Parse_ClientKey</property>
+<property name="Parse_RESTAPIKey">Parse_RESTAPIKey</property>
+```
+
+
 Subscribe to the video channel [Beginning Appcelerator Titanium Alloy - Video Channel](https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg), for additional updates on this and other Appcelerator Services and Templates
 
 ###Working with the Service
