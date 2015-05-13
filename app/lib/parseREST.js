@@ -58,6 +58,7 @@ function ParseClient() {
 }
 
 ParseClient.prototype.init = function(_config) {
+    _config = _config || {};
     appId = _config.appId || Ti.App.Properties.getString('Parse_AppId');
     apiRESTKey = _config.apiRESTKey || Ti.App.Properties.getString('Parse_RESTAPIKey');
     if (!appId || !apiRESTKey) {

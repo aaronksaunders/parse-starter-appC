@@ -26,10 +26,7 @@ function listItemClicked(_event) {
 var parseService = require('parseREST');
 
 // set the API Credentials
-parseService.init({
-    appId : '',
-    apiKey : ''
-});
+parseService.init();
 
 /**
  * sample showing querying an object that has relationships
@@ -49,7 +46,7 @@ function getTutorSessions() {
  * logging in a user and then testing some of the functionality
  * of the rest service
  */
-parseService.restoreUser("aaronsaunders", "password").then(function(_result) {
+parseService.loginUser("adminsaunders@mail.com", "password").then(function(_result) {
     console.log(JSON.stringify(_result, null, 2));
     return getTutorSessions();
 }).then(function(_sessions) {
@@ -81,19 +78,6 @@ parseService.restoreUser("aaronsaunders", "password").then(function(_result) {
 Ti.App.addEventListener("parse.push.recieved", function(_event) {
     //if clicks push tray, it will take to alert list page
 
-    if (currentUser.get("role") == "patient") {
-        var alertCtrlPatient = Alloy.createController("alerts_patient").getView();
-        alertCtrlPatient.left = Alloy.Globals.pW;
-        alertCtrlPatient.open(Alloy.Globals.slideLeft);
-    } else if (currentUser.get("role") == "others") {
-        var alertCtrlOthers = Alloy.createController("alerts_patient").getView();
-        alertCtrlOthers.left = Alloy.Globals.pW;
-        alertCtrlOthers.open(Alloy.Globals.slideLeft);
-    } else if (currentUser.get("role") == "doctor") {
-        var alertCtrlDoctor = Alloy.createController("alert_patient").getView();
-        alertCtrlDoctor.left = Alloy.Globals.pW;
-        alertCtrlDoctor.open(Alloy.Globals.slideLeft);
-    }
 
     OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
 });
