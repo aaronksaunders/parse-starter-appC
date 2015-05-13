@@ -37,7 +37,7 @@
     left: '2dp',
     right: '2dp',
     backgroundColor: '#4456',
-    margin : 100
+    margin: 100
 }
 
 ".sessionInput":{
@@ -48,10 +48,10 @@
     left: '10dp',
     right: '10dp',
     borderWidth: '.4em',
-    borderColor : 'gray',
+    borderColor: 'gray',
     paddingLeft: 4,
     paddingRight: 4,
-    backgroundColor : 'white',
+    backgroundColor: 'white',
     font: {
         fontSize: 10
     }
@@ -61,8 +61,8 @@
     top: 5,
     borderWidth: '.4em',
     width: 120,
-            color : 'black',
+    color: 'black',
     font: {
-        fontSize: 10,
+        fontSize: 10
     }
 }
