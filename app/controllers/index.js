@@ -28,18 +28,42 @@ var parseService = require('parseREST');
 // set the API Credentials
 parseService.init();
 
-/**
- * sample showing querying an object that has relationships
- * with other objects, this approach will return the complete
- * object for all of the fields mentioned in the include param
- *
- */
-function getTutorSessions() {
-    return parseService.getObjects('TutorSession', {
-        urlparams : {
-            include : 'user,tutor,place'
-        }
+function saveSessionClicked() {
+    var queryResults;
+    
+    parseService.createObject('TutorSession', {
+        sessionName : $.sessionName.value,
+        sessionLocation : $.sessionLocation.value
+    }).then(function(_queryResult) {
+        console.log("Success Happened: " + JSON.stringify(_queryResult));
+        queryResults = _queryResult;
+        return parseService.getObjects('TutorSession');
+    }).then(function(_sessions) {
+        updateList(_sessions.response.results);
+    }, function(_error) {
+        console.log("Some Error Happened: " + JSON.stringify(_error));
     });
+}
+
+function updateList(_data) {
+    var items = _.map(_data, function(element) {
+
+        return {
+            properties : {
+                data : element // save all attributes
+            },
+            // bind the labels using the bindId
+            name : {
+                text : element.sessionName
+            },
+            location : {
+                text : element.sessionLocation
+            }
+        };
+    });
+    // add the items to the section in the ListView
+    $.listSection.setItems(items);
+
 }
 
 /**
@@ -48,36 +72,18 @@ function getTutorSessions() {
  */
 parseService.loginUser("adminsaunders@mail.com", "password").then(function(_result) {
     console.log(JSON.stringify(_result, null, 2));
-    return getTutorSessions();
+    return parseService.getObjects('TutorSession');
 }).then(function(_sessions) {
     console.log("getTutorSessions: " + JSON.stringify(_sessions.response, null, 2));
 
-    var items = _.map(_sessions.response.results, function(element) {
-
-        return {
-            properties : {
-                data : element // save all attributes
-            },
-            // bind the labels using the bindId
-            name : {
-                text : element.tutor.first_name + " " + element.tutor.last_name
-            },
-            location : {
-                text : element.place.Location + ", " + element.place.Name
-            }
-        };
-    });
-    // add the items to the section in the ListView
-    $.listSection.setItems(items);
+    updateList(_sessions.response.results);
 
 }, function(_error) {
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
 });
 
-
 Ti.App.addEventListener("parse.push.recieved", function(_event) {
     //if clicks push tray, it will take to alert list page
-
 
     OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
 });

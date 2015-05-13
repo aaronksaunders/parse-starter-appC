@@ -1,29 +1,67 @@
 ".container": {
-	backgroundColor: "white"
+    backgroundColor: "white",
+    layout: 'vertical'
 }
 
 "Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
+    width: Ti.UI.SIZE,
+    height: Ti.UI.SIZE,
+    color: "#000"
 }
 
 ".listLabel": {
-	left : '5dp',
-	font: {
-		fontSize: 12
-	}
+    left: '5dp',
+    font: {
+        fontSize: 12
+    }
 }
 
 "#templateWrapper": {
-	top: '5dp',
-	layout: 'vertical',
-	height: Ti.UI.SIZE,
-	width: Ti.UI.SIZE,
-	left: '2dp',
-	right: '2dp'
+    top: '5dp',
+    layout: 'vertical',
+    height: Ti.UI.SIZE,
+    width: Ti.UI.SIZE,
+    left: '2dp',
+    right: '2dp'
 }
 
 "#listView[Android]": {
-	separatorColor : 'gray',
+    separatorColor: 'gray'
+}
+
+"#sessionInputWrapper": {
+    top: '5dp',
+    layout: 'vertical',
+    height: 86,
+    width: Ti.UI.SIZE,
+    left: '2dp',
+    right: '2dp',
+    backgroundColor: '#4456',
+    margin : 100
+}
+
+".sessionInput":{
+    top: '5dp',
+    layout: 'vertical',
+    height: 20,
+    width: Ti.UI.FILL,
+    left: '10dp',
+    right: '10dp',
+    borderWidth: '.4em',
+    borderColor : 'gray',
+    paddingLeft: 4,
+    paddingRight: 4,
+    backgroundColor : 'white',
+    font: {
+        fontSize: 10
+    }
+}
+
+"Button": {
+    top: 5,
+    borderWidth: '.4em',
+    width: 120,
+    font: {
+        fontSize: 10
+    }
 }

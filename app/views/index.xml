@@ -3,6 +3,11 @@
 	this will place the tableView properly in the page -->
 	<NavigationWindow platform="ios">
 		<Window class="container">
+		    <View id="sessionInputWrapper">
+		        <TextField class="sessionInput" id="sessionName"></TextField>
+		        <TextField class="sessionInput" id="sessionLocation"></TextField>
+		        <Button onClick="saveSessionClicked">SAVE SESSION</Button>
+		    </View>
 			<!-- listen for click and call the function specified -->
 			<ListView id="listView" onItemclick="listItemClicked" 
 				defaultItemTemplate="listViewTemplate">
