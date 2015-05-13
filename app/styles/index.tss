@@ -61,7 +61,8 @@
     top: 5,
     borderWidth: '.4em',
     width: 120,
+            color : 'black',
     font: {
-        fontSize: 10
+        fontSize: 10,
     }
 }

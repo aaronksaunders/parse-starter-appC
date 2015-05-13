@@ -4,8 +4,8 @@
 	<NavigationWindow platform="ios">
 		<Window class="container">
 		    <View id="sessionInputWrapper">
-		        <TextField class="sessionInput" id="sessionName"></TextField>
-		        <TextField class="sessionInput" id="sessionLocation"></TextField>
+		        <TextField class="sessionInput" id="sessionName" hintText="Session Name"></TextField>
+		        <TextField class="sessionInput" id="sessionLocation" hintText="Session Location"></TextField>
 		        <Button onClick="saveSessionClicked">SAVE SESSION</Button>
 		    </View>
 			<!-- listen for click and call the function specified -->
