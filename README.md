@@ -65,6 +65,30 @@ parseService.getObjects('TutorSession', params).then(function(_queryResult){
     console.log("Some Error Happened: " + JSON.stringify(_error));
 });
 ````
+A more complex query using the `where` paramater can be done as follows:
+``` Javascript
+// find all tutoring sessions that are being done by
+// the tutors with the specified ids
+var whereQueryStr = {
+    "tutor" : {
+        "$inQuery" : {
+            "where" : {
+                "objectId" : {
+                    "$in" : ["SCV3V0GqRr", "9uKbg0Hzeb"] //<== set ids here
+                }
+            },
+            "className" : "_User" // <== specify the class of the pointer relation
+        }
+    }
+};
+
+return parseService.getObjects('TutorSession', {
+    "urlparams" : {
+        "where" : whereQueryStr
+    }
+});
+```
+
 As mentioned above, if you want to work with Alloy Collections, you can just set the Collection with the results
 ``` Javascript
 var collection  =  Alloy.createColllection('Sessions',_queryResult.response.results);
