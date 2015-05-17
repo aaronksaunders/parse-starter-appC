@@ -32,7 +32,7 @@ parseService.init();
 
 function saveSessionClicked() {
     var queryResults;
-    
+
     parseService.createObject('TutorSession', {
         sessionName : $.sessionName.value,
         sessionLocation : $.sessionLocation.value
@@ -68,17 +68,44 @@ function updateList(_data) {
 
 }
 
+function whereQueryExample() {
+
+// find all tutoring sessions that are being done by
+// the tutors with the specified ids
+var whereQueryStr = {
+    "tutor" : {
+        "$inQuery" : {
+            "where" : {
+                "objectId" : {
+                    "$in" : ["SCV3V0GqRr", "9uKbg0Hzeb"]
+                }
+            },
+            "className" : "_User"
+        }
+    }
+};
+
+return parseService.getObjects('TutorSession', {
+    "urlparams" : {
+        "where" : whereQueryStr
+    }
+});
+}
+
 /**
  * logging in a user and then testing some of the functionality
  * of the rest service
  */
-parseService.loginUser("adminsaunders@mail.com", "password").then(function(_result) {
-    console.log(JSON.stringify(_result, null, 2));
-    return parseService.getObjects('TutorSession');
+parseService.loginUser("aaronsaunders", "password").then(function(_result) {
+    console.log("Success: " + JSON.stringify(_result, null, 2));
+    //return parseService.getObjects('TutorSession');
+
+    return whereQueryExample();
+
 }).then(function(_sessions) {
     console.log("getTutorSessions: " + JSON.stringify(_sessions.response, null, 2));
 
-    updateList(_sessions.response.results);
+    //updateList(_sessions.response.results);
 
 }, function(_error) {
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
