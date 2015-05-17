@@ -86,6 +86,14 @@ return parseService.getObjects('TutorSession', {
     "urlparams" : {
         "where" : whereQueryStr
     }
+}).then(function(_queryResult){
+  _.each(_queryResult.response.results, function(element) {
+    // log information about the tutoring session
+    console.log("Tutor: " + element.tutor.first_name + " " + element.tutor.last_name);
+    console.log("Location: " + element.place.Location + ", " + element.place.Name);
+  });
+}, function(_error){
+    console.log("Some Error Happened: " + JSON.stringify(_error));
 });
 ```
 
