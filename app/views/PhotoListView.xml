@@ -1,0 +1,47 @@
+<Alloy>
+    <!--
+    this is the tab information for the photo tab, we set the title and
+    the specific id that we use to manipulate the tab object
+    -->
+    <Tab id="photoListTab" title="PhotoList">
+        <!--
+        window is defined here, the class is specified and can be seen
+        in the appropriate .tss file
+        -->
+        <Window id="photoListWindow"  title="PhotoList" class='container'>
+            <!-- specify widget id and the function to call to update the data -->
+            <Widget id="pullToRefresh" src="nl.fokkezb.pullToRefresh" onRelease="refreshData">
+                <!--
+                this is the listView which is an alternative to the tableView.
+                it performs much better and is the recommended approach for
+                building applications
+                -->
+                <ListView id="listView" onItemclick="listItemClicked">
+                    <Templates>
+                        <!--
+                        templates are how the data is rendered in the ListView, the list can
+                        support multiple templates and the template is specified when the
+                        data is set in the controller.
+                        -->
+                        <ItemTemplate name="listViewTemplate" height='100dp'>
+                            <View id="templateWrapper">
+                                <View class="imageViewWrapper">
+                                    <ImageView bindId="thumbImage" id="thumbImage"/>
+                                </View>
+                                <View id="textWrapper">
+                                    <Label bindId="dateCreated" id="dateCreated"/>
+                                    <Label bindId="fileName" id="fileName"/>
+                                </View>
+                            </View>
+                        </ItemTemplate>
+                    </Templates>
+                    <!--
+                    the data, based on the templates are rendered in sections, this app
+                    only has one section, but can support multiple sections
+                    -->
+                    <ListSection id="listViewSection" />
+                </ListView>
+            </Widget>
+        </Window>
+    </Tab>
+</Alloy>

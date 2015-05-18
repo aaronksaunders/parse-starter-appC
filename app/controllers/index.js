@@ -25,10 +25,13 @@ function listItemClicked(_event) {
 }
 
 // lets get some real data!!
-var parseService = require('parseREST');
+Alloy.Globals.parseService = require('parseREST');
 
 // set the API Credentials
-parseService.init();
+Alloy.Globals.parseService.init();
+
+var parseService = Alloy.Globals.parseService;
+
 
 function saveSessionClicked() {
     var queryResults;
@@ -116,5 +119,7 @@ Ti.App.addEventListener("parse.push.recieved", function(_event) {
 
     OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
 });
-// open the view
+
+
+// open the main view of index.js, which is the tab
 $.index.open();

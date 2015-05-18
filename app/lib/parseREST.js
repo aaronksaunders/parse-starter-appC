@@ -349,6 +349,8 @@ ParseClient.prototype.sendPush = function(_params, callback) {
  * @param {Object} callback
  */
 ParseClient.prototype._request = function(url, params, callback) {
+    
+    console.log(params);
 
     var Q = require('q');
     var deferred = Q.defer();
