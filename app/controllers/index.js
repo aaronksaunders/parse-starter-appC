@@ -32,9 +32,11 @@ Alloy.Globals.parseService.init();
 
 var parseService = Alloy.Globals.parseService;
 
-
 function saveSessionClicked() {
     var queryResults;
+
+    alert("WIP");
+    return;
 
     parseService.createObject('TutorSession', {
         sessionName : $.sessionName.value,
@@ -59,10 +61,10 @@ function updateList(_data) {
             },
             // bind the labels using the bindId
             name : {
-                text : element.sessionName
+                text : element.tutor.email
             },
             location : {
-                text : element.sessionLocation
+                text : element.place.Location + "-" + element.place.Name
             }
         };
     });
@@ -73,26 +75,27 @@ function updateList(_data) {
 
 function whereQueryExample() {
 
-// find all tutoring sessions that are being done by
-// the tutors with the specified ids
-var whereQueryStr = {
-    "tutor" : {
-        "$inQuery" : {
-            "where" : {
-                "objectId" : {
-                    "$in" : ["SCV3V0GqRr", "9uKbg0Hzeb"]
-                }
-            },
-            "className" : "_User"
+    // find all tutoring sessions that are being done by
+    // the tutors with the specified ids
+    var whereQueryStr = {
+        "tutor" : {
+            "$inQuery" : {
+                "where" : {
+                    "objectId" : {
+                        "$in" : ["SCV3V0GqRr", "9uKbg0Hzeb"]
+                    }
+                },
+                "className" : "_User"
+            }
         }
-    }
-};
+    };
 
-return parseService.getObjects('TutorSession', {
-    "urlparams" : {
-        "where" : whereQueryStr
-    }
-});
+    return parseService.getObjects('TutorSession', {
+        "urlparams" : {
+            "include" : "user,tutor,place",
+            "where" : whereQueryStr
+        }
+    });
 }
 
 /**
@@ -108,7 +111,7 @@ parseService.loginUser("aaronsaunders", "password").then(function(_result) {
 }).then(function(_sessions) {
     console.log("getTutorSessions: " + JSON.stringify(_sessions.response, null, 2));
 
-    //updateList(_sessions.response.results);
+    updateList(_sessions.response.results);
 
 }, function(_error) {
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
@@ -119,7 +122,6 @@ Ti.App.addEventListener("parse.push.recieved", function(_event) {
 
     OS_IOS && Titanium.UI.iPhone.setAppBadge(0);
 });
-
 
 // open the main view of index.js, which is the tab
 $.index.open();
