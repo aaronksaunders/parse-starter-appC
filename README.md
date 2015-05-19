@@ -110,7 +110,7 @@ var collection  =  Alloy.createColllection('Sessions',_queryResult.response.resu
 ####Screenshot of Tutor Sessions Objects
 [![Appcelerator Alloy](images/parse_tutor_sessions.png)](http://appcelerator.com/alloy/)
 
-###Working with Files
+###Working with Files and Binary Objects
 When working with Files in Parse, you have to remember that the only way to get access to the File object after it is created is to associate it with another object. In the example below, we will do this in two steps, first show how to create the file, and then show how to associate it with an object.
 
 ``` Javascript
@@ -130,7 +130,7 @@ This code will give you back a response object something like this and the file 
     "url":"http://files.parsetfss.com/f875e1c9-4326-4040-afd8-19849220/tfss-e74daf28-iTunesConnect.png"
 }
 ```
-A helper method with allow you to upload the file and associate it with a specific object called a FileHelper. This `FileHelper` object will provide access to the image
+A helper method with allow you to upload the file and associate it with a specific object called a ImageInfo. This `ImageInfo` object will provide access to the image
 ```Javascript
 var parseService = require('parseREST');
 parseService.init();
