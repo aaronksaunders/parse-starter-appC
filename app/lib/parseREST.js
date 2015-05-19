@@ -426,9 +426,9 @@ ParseClient.prototype._request = function(url, params, callback) {
         });
     };
 
-    //params = params.replace(/\./g, '_');
-
-    //when urlparams has "where" encodeData function not working properly. Below if statement code will make this query call.
+    // @TODO find a better solution...
+    // when urlparams has "where" encodeData function not working properly. 
+    // Below if statement code will make this query call.
     if (params.urlparams && params.urlparams.where) {
         
         // save the where stuff
@@ -463,7 +463,8 @@ function encodeData(_params, _url) {
     var str = [];
 
     for (var p in _params) {
-        str.push(Ti.Network.encodeURIComponent(p) + "=" + Ti.Network.encodeURIComponent(_params[p]));
+        //str.push(Ti.Network.encodeURIComponent(p) + "=" + Ti.Network.encodeURIComponent(_params[p]));
+        str.push(p + "=" + _params[p]);
     }
 
     if (_.indexOf(_url, "?") == -1) {
