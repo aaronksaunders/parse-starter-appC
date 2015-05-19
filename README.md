@@ -139,9 +139,9 @@ file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, "iTunesConnect.pn
 var blob = file.read();
 
 parseService.uploadFile("image/jpeg", "iTunesConnect.png", blob).then(function(_results) {
-	return parseService.createObject('FileHelper', {
-		"nameKey" : _results.response.name,
-		"fileData" : {
+	return parseService.createObject('ImageInfo', {
+		"caption" : _results.response.name,
+		"picture" : {
 			"name" : _results.response.name,
 			"__type" : "File"
 		}
