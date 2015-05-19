@@ -2,40 +2,45 @@
     backgroundColor: "#fff"
 }
 "#thumbImage": {
-    hires : true,
+    hires : true
 },
 "#dateCreated": {
-    left: '5dp',
+    wordWrap: true,
+    textAlign: 'left',
+    height: '40dp',
+    left: '1dp',
+    right: '5dp',
     font: {
         fontSize: '12dp',
         fontFamily: 'Helvetica Neue'
     }
 }
 "#fileName": {
-    left: '5dp',
     color: 'gray',
+    textAlign: 'left',
+    height: Ti.UI.SIZE,
+    right: '5dp',
+    left: '1dp',
+    wordWrap: true,
     font: {
         fontSize: '8dp',
         fontFamily: 'Helvetica Neue'
     }
 }
 "#templateWrapper": {
-    top : '5dp',
     layout: 'horizontal',
-    height: Ti.UI.SIZE,
-    right : '2dp'
+    height: Ti.UI.FILL
 }
 "#textWrapper": {
     layout: 'vertical',
     left: '10dp',
-    height: Ti.UI.SIZE,
-    width: Ti.UI.SIZE
+    height: Ti.UI.FILL
 }
 "#listView[Android]": {
-    separatorColor : 'gray',
+    separatorColor: 'gray'
 }
-".imageViewWrapper": {
-    left: '10dp',
-    width: '84dp',
-    height: '84dp'
+"#imageViewWrapper": {
+    left: '5dp',
+    width: '78dp',
+    height: '78dp'
 }

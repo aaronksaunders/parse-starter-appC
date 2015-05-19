@@ -16,16 +16,17 @@
                 it performs much better and is the recommended approach for
                 building applications
                 -->
-                <ListView id="listView" onItemclick="listItemClicked">
+                <ListView id="listView" onItemclick="listItemClicked"
+                defaultItemTemplate="listViewTemplate">
                     <Templates>
                         <!--
                         templates are how the data is rendered in the ListView, the list can
                         support multiple templates and the template is specified when the
                         data is set in the controller.
                         -->
-                        <ItemTemplate name="listViewTemplate" height='100dp'>
+                        <ItemTemplate name="listViewTemplate" height='86dp'>
                             <View id="templateWrapper">
-                                <View class="imageViewWrapper">
+                                <View id="imageViewWrapper">
                                     <ImageView bindId="thumbImage" id="thumbImage"/>
                                 </View>
                                 <View id="textWrapper">
