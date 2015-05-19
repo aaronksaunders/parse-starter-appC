@@ -430,7 +430,16 @@ ParseClient.prototype._request = function(url, params, callback) {
 
     //when urlparams has "where" encodeData function not working properly. Below if statement code will make this query call.
     if (params.urlparams && params.urlparams.where) {
-        params.url = params.url + "?" + "where=" + JSON.stringify(params.urlparams.where);
+        
+        // save the where stuff
+        var whereParams = params.urlparams.where;
+        delete params.urlparams['where'];
+        
+        // encode the rest of the url
+        params.url = encodeData(params.urlparams, params.url);
+        
+        // add the where stuff to the url
+        params.url = params.url + "&" + "where=" + JSON.stringify(whereParams);
     } else {
         params.url = encodeData(params.urlparams, params.url);
     }
