@@ -6,6 +6,7 @@
 },
 "#dateCreated": {
     wordWrap: true,
+    color: 'black',
     textAlign: 'left',
     height: '40dp',
     left: '1dp',
@@ -31,11 +32,18 @@
     layout: 'horizontal',
     height: Ti.UI.FILL
 }
-"#textWrapper": {
+"#textWrapper[platform=ios]": {
     layout: 'vertical',
     left: '10dp',
     height: Ti.UI.FILL
 }
+"#textWrapper[platform=android]": {
+    layout: 'vertical',
+    left: '10dp',
+    height: Ti.UI.FILL,
+    width : Ti.UI.FILL
+}
+
 "#listView[Android]": {
     separatorColor: 'gray'
 }
