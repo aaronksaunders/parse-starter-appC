@@ -122,3 +122,15 @@ function listItemClicked(_event) {
         $.photoListTab.open(ctrl.detailWindow);
     }, 200);
 }
+
+function addPhoto(){
+	alert("Add Photo Selected");
+}
+
+// MenuItem Event, cannot be set until the menu is drawn
+OS_ANDROID && ($.photoListWindow.activity.onPrepareOptionsMenu = function(e) {
+	e.menu.findItem(0).addEventListener('click', addPhoto);
+});
+
+// Button Event
+OS_IOS && $.addPhotoBtn.addEventListener('click', addPhoto);
