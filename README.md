@@ -9,7 +9,7 @@ It can be downloaded from here, we only are using it for the Android Parse Push 
 [https://github.com/timanrebel/Parse](https://github.com/timanrebel/Parse)
 
 #### Setup For Pull to Refresh - Install Module
-[`gittio uninstall nl.fokkezb.pullToRefresh`] ( http://gitt.io/component/nl.fokkezb.pullToRefresh)
+[`gittio install nl.fokkezb.pullToRefresh`] ( http://gitt.io/component/nl.fokkezb.pullToRefresh)
 
 For Android, you need to install and additional module
 [`gittio install com.rkam.swiperefreshlayout`](http://gitt.io/component/com.rkam.swiperefreshlayout)
