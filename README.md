@@ -4,17 +4,24 @@ ____
 
 This approach differs from the previous template in that we focus on using the [Parse REST API](https://www.parse.com/docs/rest) instead of the JavaScript API. The work is is [based on work done by Stephen Feather](https://gist.github.com/sfeather/4400387) and other on creating the initial gist that I have derived the parseREST service from. I have made additional updates to the parseREST service and will continue to make changes to the application to make for a better starter template as an alternative to Appcelerator Cloud Services
 
-#### Setup For Android Push - Install Android Push Module
+#### Misc Setup 
+I use `gittio` for installing and maintaining modules and recommend that you do to. See [http://gitt.io/cli](http://gitt.io/cli) for additional information on using this great service.
+
+######Android Push - Install Android Push Module
 It can be downloaded from here, we only are using it for the Android Parse Push Connectivity
 [https://github.com/timanrebel/Parse](https://github.com/timanrebel/Parse)
 
-#### Setup For Pull to Refresh - Install Module
+######ImageFactory - Compress and resize image for upload since photos are HUGE
+It can be downloaded using gittio
+[`gittio install ti.imagefactory`] ( http://gitt.io/component/ti.imagefactory)
+
+######Pull to Refresh - Install Module
 [`gittio install nl.fokkezb.pullToRefresh`] ( http://gitt.io/component/nl.fokkezb.pullToRefresh)
 
 For Android, you need to install and additional module
 [`gittio install com.rkam.swiperefreshlayout`](http://gitt.io/component/com.rkam.swiperefreshlayout)
 
-### The Application Keys for Parse
+######The Application Keys for Parse
 These keys need to be set in `tiapp.xml` the application can use the values passed in on the `parseService.init` call, but these values will not be accessible in the Android Push Module so it is recommended to use the `tiapp.xml` approach.
 ```
 <property name="Parse_AppId">Parse_AppId</property>
