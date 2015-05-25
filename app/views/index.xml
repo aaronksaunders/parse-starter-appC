@@ -1,6 +1,6 @@
 <Alloy>
 
-    <TabGroup>
+    <TabGroup  onOpen="doWindowOpen">
         <!-- the tabs -->
         <Tab title="Tutor Session" icon="KS_nav_ui.png">
             <Window class="container">

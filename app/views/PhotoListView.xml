@@ -12,9 +12,6 @@
             <RightNavButton platform="ios">
                 <Button id="addPhotoBtn">Add</Button>
             </RightNavButton>
-            <Menu id="mainMenu"  platform="android" >
-                <MenuItem id="addPhotoItem" title="Add" />
-            </Menu>
             <!-- specify widget id and the function to call to update the data -->
             <Widget id="pullToRefresh" src="nl.fokkezb.pullToRefresh" onRelease="refreshData">
                 <!--
