@@ -115,13 +115,13 @@ As mentioned above, if you want to work with Alloy Collections, you can just set
 var collection  =  Alloy.createColllection('Sessions',_queryResult.response.results);
 ```
 ####Screenshot of Users Objects
-[![Appcelerator Alloy](images/parse_users.png)](http://appcelerator.com/alloy/)
+[![Appcelerator Alloy](images/parse_users.png)](images/parse_users.png)
 
 ####Screenshot of Places Objects
-[![Appcelerator Alloy](images/parse_places.png)](http://appcelerator.com/alloy/)
+[![Appcelerator Alloy](images/parse_places.png)](images/parse_places.png)
 
 ####Screenshot of Tutor Sessions Objects
-[![Appcelerator Alloy](images/parse_tutor_sessions.png)](http://appcelerator.com/alloy/)
+[![Appcelerator Alloy](images/parse_tutor_sessions.png)](images/parse_tutor_sessions.png)
 
 ###Working with Files and Binary Objects
 When working with Files in Parse, you have to remember that the only way to get access to the File object after it is created is to associate it with another object. In the example below, we will do this in two steps, first show how to create the file, and then show how to associate it with an object.
@@ -171,6 +171,8 @@ The results should look something like this:
     "objectId": "yLPdeXDinq"
 }
 ```
+####Screenshot of PhotoList View Showing Uploading Images in Parse
+[![Appcelerator Alloy](images/PhotoListView.png)](images/PhotoListView.png)
 ----------------------------------
 
 Appcelerator, Appcelerator Titanium and associated marks and logos are 
