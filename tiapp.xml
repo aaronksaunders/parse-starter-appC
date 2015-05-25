@@ -13,9 +13,9 @@
     <analytics>true</analytics>
     <guid>5dfa6c7f-a3ff-4d2c-80c5-48413d22f862</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
-    <property name="Parse_AppId">GRIoAKWUExfsT1q37Uyt66h4Lmx9ovvBAv2qigIw</property>
-    <property name="Parse_ClientKey">1M6398ExrwRb5d7FcSbhd8IoJvmyEDmG1FrS31Fc</property>
-    <property name="Parse_RESTAPIKey">3vt0buEpMRbIQ6p8OWVwBvgt6ZEKQN5rdjmiqmqR</property>    
+    <property name="Parse_AppId">1GRIoAKWUExfsT1q37Uyt66h4Lmx9ovvBAv2qigIw4</property>
+    <property name="Parse_ClientKey">21M6398ExrwRb5d7FcSbhd8IoJvmyEDmG1FrS31Fc5</property>
+    <property name="Parse_RESTAPIKey">33vt0buEpMRbIQ6p8OWVwBvgt6ZEKQN5rdjmiqmqR6</property>    
     <ios>
         <plist>
             <dict>
