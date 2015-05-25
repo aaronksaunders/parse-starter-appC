@@ -20,6 +20,8 @@ var parseService = Alloy.Globals.parseService = require('parseREST');
 // using for time formatting - http://momentjs.com/
 var moment = require('moment');
 
+var ImageFactory = require('ti.imagefactory');
+
 var utils = require('utilities');
 
 Ti.API.info('Loaded PhotoListView Controller');
@@ -123,13 +125,92 @@ function listItemClicked(_event) {
     }, 200);
 }
 
-function addPhoto(){
-	alert("Add Photo Selected");
+/**
+ * http://docs.appcelerator.com/titanium/3.0/#!/guide/Camera_and_Photo_Gallery_APIs
+ */
+function addPhoto() {
+
+    Titanium.Media.openPhotoGallery({
+        //Titanium.Media.showCamera({
+        success : function(event) {
+            // called when media returned from the camera
+            Ti.API.debug('Our type was: ' + event.mediaType);
+            if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+
+                // now save the photo with no location
+                savePhoto(event.media, {});
+
+            } else {
+                alert("got the wrong type back =" + event.mediaType);
+            }
+        },
+        cancel : function() {
+            // called when user cancels taking a picture
+        },
+        error : function(error) {
+            // called when there's an error
+            if (error.code == Titanium.Media.NO_CAMERA) {
+                alert('Please run this test on device');
+            } else {
+                alert('Unexpected error: ' + error.code);
+            }
+        },
+        saveToPhotoGallery : true,
+        // allowEditing and mediaTypes are iOS-only settings
+        allowEditing : true,
+        // only photo, no videos in this sample
+        mediaTypes : [Ti.Media.MEDIA_TYPE_PHOTO]
+    });
+}
+
+/**
+ *
+ * @param {Object} _imageData
+ * @param {Object} _locationInformation
+ */
+function savePhoto(_imageData, _locationInformation) {
+
+    //utils.showindicator();
+
+    // compress image for better uploading
+
+    var imageCompressed;
+
+    if (OS_ANDROID || _imageData.width > 700) {
+        var w,
+            h;
+        w = _imageData.width * .50;
+        h = _imageData.height * .50;
+        imageCompressed = ImageFactory.imageAsResized(_imageData, {
+            width : w,
+            height : h
+        });
+    } else {
+        // we do not need to compress here
+        imageCompressed = _imageData;
+    }
+
+    parseService.uploadFile("image/jpeg", Ti.Platform.createUUID() +".jpeg", imageCompressed).then(function(_results) {
+        return parseService.createObject('ImageInfo', {
+            "caption" : _results.response.name,
+            "picture" : {
+                "name" : _results.response.name,
+                "__type" : "File"
+            }
+        }).then(function(_results2) {
+            console.log("FileHelper Object: " + JSON.stringify(_results2));
+
+            return $.photoListView.loadImages();
+        }, function(_error) {
+            console.log("ERROR: " + JSON.stringify(_error));
+        });
+    });
+
 }
 
 // MenuItem Event, cannot be set until the menu is drawn
 OS_ANDROID && ($.photoListWindow.activity.onPrepareOptionsMenu = function(e) {
-	e.menu.findItem(0).addEventListener('click', addPhoto);
+    e.menu.findItem(0).addEventListener('click', addPhoto);
 });
 
 // Button Event

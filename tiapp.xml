@@ -13,9 +13,9 @@
     <analytics>true</analytics>
     <guid>5dfa6c7f-a3ff-4d2c-80c5-48413d22f862</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
-    <property name="Parse_AppId">1i57t6dY5qkhVOohl0U9qsAxNOdyVQk5Xqb8Pexlu4</property>
-    <property name="Parse_ClientKey">2CXdHqoYN1pt96EqMgUcuLELicKuHbcAoXAUF0OSf5</property>
-    <property name="Parse_RESTAPIKey">3jdLkQiB4Yhy9amL9HgTSk5oPISIhgeYDoYgAnmOG6</property>    
+    <property name="Parse_AppId">GRIoAKWUExfsT1q37Uyt66h4Lmx9ovvBAv2qigIw</property>
+    <property name="Parse_ClientKey">1M6398ExrwRb5d7FcSbhd8IoJvmyEDmG1FrS31Fc</property>
+    <property name="Parse_RESTAPIKey">3vt0buEpMRbIQ6p8OWVwBvgt6ZEKQN5rdjmiqmqR</property>    
     <ios>
         <plist>
             <dict>
@@ -62,10 +62,11 @@
     <modules>
     <module platform="android" version="0.6">eu.rebelcorp.parse</module>
     <module platform="android" version="0.4.1">com.rkam.swiperefreshlayout</module>
+    <module platform="iphone" version="1.2.0">ti.imagefactory</module>
+    <module platform="android" version="2.2.1">ti.imagefactory</module>
   </modules>
     <deployment-targets>
         <target device="android">true</target>
-        <target device="blackberry">false</target>
         <target device="ipad">false</target>
         <target device="iphone">true</target>
         <target device="mobileweb">false</target>
