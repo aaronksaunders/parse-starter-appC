@@ -15,6 +15,7 @@ function doWindowOpen(evt) {
 				item2 = e.menu.add({
 					title : "Add",
 					showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,
+					icon: Ti.Android.R.drawable.ic_menu_camera
 				});
 				item2.addEventListener("click", function(e) {					
 					$.photoListView.addPhoto();
@@ -143,6 +144,7 @@ parseService.loginUser("aaronsaunders", "password").then(function(_result) {
 
 }, function(_error) {
 	Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
+	alert("Check Your Username/Password\n" + _error.error);
 });
 
 Ti.App.addEventListener("parse.push.recieved", function(_event) {
