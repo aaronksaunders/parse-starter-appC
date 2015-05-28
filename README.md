@@ -171,6 +171,16 @@ The results should look something like this:
     "objectId": "yLPdeXDinq"
 }
 ```
+####Image Resizing
+Most of todays newer phones create this amazing high resolution images, for this specific application I have chosen to utilize an Appcelerator module to resize the images by 50% before uploading them to the Parse server. This allow for a much better user experience when working with the images and waiting for them to upload and still you end up with a decent quality photo.
+
+```Javascript
+var w, h;
+w = _imageData.width * .50;
+h = _imageData.height * .50;
+imageCompressed = ImageFactory.imageAsResized(_imageData, {width : w,height : h});
+```
+Additional information & documentation on the `ImageFactory` module can be found here [https://github.com/appcelerator-modules/ti.imagefactory](https://github.com/appcelerator-modules/ti.imagefactory)
 ####Screenshot of PhotoList View Showing Uploading Images in Parse
 [![Appcelerator Alloy](images/PhotoListView.png)](images/PhotoListView.png)
 ----------------------------------
