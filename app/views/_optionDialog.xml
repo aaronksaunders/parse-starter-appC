@@ -1,0 +1,23 @@
+<Alloy>
+    <OptionDialog id="dialog" title="Select Image Source" destructive="2" >
+        <Options>
+            <Option>Use Camera</Option>
+            <Option>Use Photo Album</Option>
+            <Option>Cancel</Option>
+        </Options>
+        <!-- buttonNames only rendered on Android -->
+        <ButtonNames>
+            <ButtonName>button 1</ButtonName>
+            <ButtonName>button 2</ButtonName>
+        </ButtonNames>
+        <!--
+        Only on Android, an additional view can be added to be rendered in
+        the OptionDialog, replacing any declared options. It will be
+        assigned to the underlying "androidView" property of the OptionDialog.
+        -->
+        <View layout="horizontal" platform="android">
+            <ImageView id="avImage" image="/appc4.png" height="40dp" width="40dp"/>
+            <Label id="avLabel">This is an androidView</Label>
+        </View>
+    </OptionDialog>
+</Alloy>

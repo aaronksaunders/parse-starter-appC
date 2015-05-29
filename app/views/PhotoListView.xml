@@ -46,6 +46,7 @@
                     <ListSection id="listViewSection" />
                 </ListView>
             </Widget>
+            <Require id="optionDialog" src="_optionDialog"></Require>
         </Window>
     </Tab>
 </Alloy>
