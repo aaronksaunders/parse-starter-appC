@@ -1,6 +1,10 @@
 Alloy.Globals.tabGroup = $.index;
 
 function doWindowOpen(evt) {
+    
+    if (OS_IOS) {
+        return;
+    }
 
 	var activity = evt.source.getActivity();
 
