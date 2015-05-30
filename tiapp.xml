@@ -15,7 +15,7 @@
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <property name="Parse_AppId">1GRIoAKWUExfsT1q37Uyt66h4Lmx9ovvBAv2qigIw4</property>
     <property name="Parse_ClientKey">21M6398ExrwRb5d7FcSbhd8IoJvmyEDmG1FrS31Fc5</property>
-    <property name="Parse_RESTAPIKey">33vt0buEpMRbIQ6p8OWVwBvgt6ZEKQN5rdjmiqmqR6</property>    
+    <property name="Parse_RESTAPIKey">33vt0buEpMRbIQ6p8OWVwBvgt6ZEKQN5rdjmiqmqR6</property>
     <ios>
         <plist>
             <dict>
@@ -43,9 +43,8 @@
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
         <property name="ti.android.bug2373.finishfalseroot" type="bool">true</property>
-        <tool-api-level>14</tool-api-level>
         <manifest android:versionCode="1" android:versionName="1.0.0">
-            <uses-sdk android:targetSdkVersion="14"/>
+            <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="14" android:maxSdkVersion="21"/>
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -60,12 +59,13 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-    <module platform="android" version="0.6">eu.rebelcorp.parse</module>
-    <module platform="android" version="0.4.1">com.rkam.swiperefreshlayout</module>
-    <module platform="iphone" version="1.2.0">ti.imagefactory</module>
-    <module platform="android" version="2.2.1">ti.imagefactory</module>
-  </modules>
+        <module platform="android" version="0.6">eu.rebelcorp.parse</module>
+        <module platform="android" version="0.4.1">com.rkam.swiperefreshlayout</module>
+        <module platform="iphone" version="1.2.0">ti.imagefactory</module>
+        <module platform="android" version="2.2.1">ti.imagefactory</module>
+    </modules>
     <deployment-targets>
+        <target device="blackberry">false</target>
         <target device="android">true</target>
         <target device="ipad">false</target>
         <target device="iphone">true</target>
