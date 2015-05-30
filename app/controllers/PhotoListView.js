@@ -131,7 +131,7 @@ function listItemClicked(_event) {
 function addPhoto() {
 
     function getImageFromSource(_source) {
-        _source({
+        Ti.Media[_source]({
             success : function(event) {
                 // called when media returned from the camera
                 Ti.API.debug('Our type was: ' + event.mediaType);
@@ -167,9 +167,9 @@ function addPhoto() {
     $.optionDialog.dialog.addEventListener('click', function handleClick(_event) {
 
         if (_event.index === 0) {
-            getImageFromSource(Titanium.Media.showCamera);
+            getImageFromSource("showCamera");
         } else if (_event.index === 1) {
-            getImageFromSource(Titanium.Media.openPhotoGallery);
+            getImageFromSource("openPhotoGallery");
         }
 
     });

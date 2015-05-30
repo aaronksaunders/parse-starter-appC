@@ -17,8 +17,7 @@
         assigned to the underlying "androidView" property of the OptionDialog.
         -->
         <View layout="horizontal" platform="android">
-            <ImageView id="avImage" image="/appc4.png" height="40dp" width="40dp"/>
-            <Label id="avLabel">This is an androidView</Label>
+            <Label id="avLabel">\nChoose where to select the image from, Camera only works on device</Label>
         </View>
     </OptionDialog>
 </Alloy>

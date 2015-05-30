@@ -1,0 +1,4 @@
+"#avLabel[platform=android]": {
+    left: '10dp',
+    right: '10dp'
+}
