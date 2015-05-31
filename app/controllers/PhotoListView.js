@@ -85,9 +85,11 @@ function addPhotosToListView(_photos) {
             },
             template : 'listViewTemplate',
             thumbImage : {
-                image : _photos[i].picture.url
+                image : _photos[i].thumbBase64 ? Titanium.Utils.base64decode(_photos[i].thumbBase64 + "") : _photos[i].picture.url
             }
         };
+
+_photos[i].thumbBase64 ? console.log("length " + _photos[i].thumbBase64.length) : ""
 
         $.listViewSection.appendItems([listItem]);
     }
@@ -191,7 +193,9 @@ function savePhoto(_imageData, _locationInformation) {
 
     // compress image for better uploading
 
-    var imageCompressed;
+    var imageCompressed,
+        thumbBlob,
+        thumbBase64;
 
     if (OS_ANDROID || _imageData.width > 700) {
         var w,
@@ -207,9 +211,20 @@ function savePhoto(_imageData, _locationInformation) {
         imageCompressed = _imageData;
     }
 
+    // create a small thumbnail for display purposes in base64 and save in row
+    // this way we dont need to render the huge original image
+    thumbBlob = ImageFactory.imageAsThumbnail(imageCompressed, {
+        size : 128,
+        format : ImageFactory.PNG
+    });
+
+    // store as a base64 string
+    thumbBase64 = Titanium.Utils.base64encode(thumbBlob);
+
     parseService.uploadFile("image/jpeg", Ti.Platform.createUUID() + ".jpeg", imageCompressed).then(function(_results) {
         return parseService.createObject('ImageInfo', {
             "caption" : _results.response.name,
+            "thumbBase64" : thumbBase64 + "",
             "picture" : {
                 "name" : _results.response.name,
                 "__type" : "File"
