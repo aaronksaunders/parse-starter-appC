@@ -61,8 +61,6 @@
     <modules>
         <module platform="android" version="0.6">eu.rebelcorp.parse</module>
         <module platform="android" version="0.4.1">com.rkam.swiperefreshlayout</module>
-        <module platform="iphone" version="1.2.0">ti.imagefactory</module>
-        <module platform="android" version="2.2.1">ti.imagefactory</module>
     </modules>
     <deployment-targets>
         <target device="blackberry">false</target>
