@@ -11,10 +11,6 @@ I use `gittio` for installing and maintaining modules and recommend that you do 
 It can be downloaded from here, we only are using it for the Android Parse Push Connectivity
 [https://github.com/timanrebel/Parse](https://github.com/timanrebel/Parse)
 
-######ImageFactory - Compress and resize image for upload since photos are HUGE
-It can be downloaded using gittio
-[`gittio install ti.imagefactory`] ( http://gitt.io/component/ti.imagefactory)
-
 ######Pull to Refresh - Install Module
 [`gittio install nl.fokkezb.pullToRefresh`] ( http://gitt.io/component/nl.fokkezb.pullToRefresh)
 
