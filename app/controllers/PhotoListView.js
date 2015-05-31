@@ -20,8 +20,6 @@ var parseService = Alloy.Globals.parseService = require('parseREST');
 // using for time formatting - http://momentjs.com/
 var moment = require('moment');
 
-var ImageFactory = require('ti.imagefactory');
-
 var utils = require('utilities');
 
 Ti.API.info('Loaded PhotoListView Controller');
@@ -88,8 +86,6 @@ function addPhotosToListView(_photos) {
                 image : _photos[i].thumbBase64 ? Titanium.Utils.base64decode(_photos[i].thumbBase64 + "") : _photos[i].picture.url
             }
         };
-
-_photos[i].thumbBase64 ? console.log("length " + _photos[i].thumbBase64.length) : ""
 
         $.listViewSection.appendItems([listItem]);
     }
