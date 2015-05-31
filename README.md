@@ -1,5 +1,7 @@
 [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/titanium-git-badge-sq.png)](http://appcelerator.com/titanium/) [![Appcelerator Alloy](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://appcelerator.com/alloy/)
 ____
+[![Building Cross-Platform Apps using Titanium, Alloy, and Appcelerator Cloud Services](images/Book Info.png)](http://www.clearlyinnovative.com/build-it/)
+____
 #Appcelerator Titanium Alloy Mobile - Parse Starter Template w/REST Service
 
 This approach differs from the previous template in that we focus on using the [Parse REST API](https://www.parse.com/docs/rest) instead of the JavaScript API. The work is is [based on work done by Stephen Feather](https://gist.github.com/sfeather/4400387) and other on creating the initial gist that I have derived the parseREST service from. I have made additional updates to the parseREST service and will continue to make changes to the application to make for a better starter template as an alternative to Appcelerator Cloud Services
