@@ -202,21 +202,15 @@ function savePhoto(_imageData, _locationInformation) {
             h;
         w = _imageData.width * .50;
         h = _imageData.height * .50;
-        imageCompressed = ImageFactory.imageAsResized(_imageData, {
-            width : w,
-            height : h
-        });
+        imageCompressed = _imageData.imageAsResized(w, h);
     } else {
         // we do not need to compress here
         imageCompressed = _imageData;
     }
 
     // create a small thumbnail for display purposes in base64 and save in row
-    // this way we dont need to render the huge original image
-    thumbBlob = ImageFactory.imageAsThumbnail(imageCompressed, {
-        size : 128,
-        format : ImageFactory.PNG
-    });
+    // this way we don't need to render the huge original image
+    thumbBlob = imageCompressed.imageAsThumbnail(128);
 
     // store as a base64 string
     thumbBase64 = Titanium.Utils.base64encode(thumbBlob);
