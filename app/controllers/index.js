@@ -137,12 +137,36 @@ function whereQueryExample() {
 //
 
 /**
+ *
+ */
+function userNotLoggedIn() {
+    // display login information
+    var ctrl = Alloy.createController('UserManagement', {
+        callback : function(_user) {
+
+            if (!_user.error) {
+                doLoginSuccess();
+
+                // close the old window
+                ctrl.getView().close();
+                ctrl = nil;
+
+            } else {
+                alert("Login Error " + _user.error);
+            }
+        }
+    });
+
+    ctrl.getView().open();
+}
+
+/**
  * logging in a user and then testing some of the functionality
  * of the rest service
  */
 
 function doLoginSuccess() {
-    return whereQueryExample().then(function(_sessions) {
+    whereQueryExample().then(function(_sessions) {
         console.log("getTutorSessions: " + JSON.stringify(_sessions.response, null, 2));
 
         updateList(_sessions.response.results);
@@ -184,7 +208,7 @@ parseService.restoreUser().then(function(_result) {
     // set the title on the logout/login button
     $.logoutBtn.title = "Login";
 
-    return loginUser();
+    userNotLoggedIn();
 });
 
 // Logout Button Handler
@@ -196,6 +220,9 @@ function doLogout() {
 
         // set the title on the logout/login button
         $.logoutBtn.title = "Login";
+        
+        // display login screen
+        userNotLoggedIn();
 
     }, function(_error) {
         Ti.API.error('ERROR: ' + _error.error);
