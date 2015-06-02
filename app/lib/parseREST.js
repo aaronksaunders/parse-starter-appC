@@ -208,8 +208,7 @@ ParseClient.prototype.logoutUser = function() {
 		parse.setSessionToken(null);
 		parse.saveUserRecord(null);
 
-		Ti.Network.removeHTTPCookiesForDomain("parse.com");
-		Ti.Network.removeHTTPCookiesForDomain("api.parse.com");
+		Ti.Network.removeAllSystemCookies();
 
 		return deferred.resolve(response);
 	}, function(_error) {
