@@ -71,11 +71,16 @@ ParseClient.prototype.saveUserRecord = function(user) {
 };
 
 ParseClient.prototype.removeUserRecord = function(user) {
-    Ti.App.Properties.removeObject('parseUser', user);
+    Ti.App.Properties.removeObject('parseUser');
 };
 
 ParseClient.prototype.setSessionToken = function(token) {
-    Ti.App.Properties.setString('parseSessionToken', token);
+    if (!token) {
+        Ti.App.Properties.removeProperty('parseSessionToken');
+        console.log("removed session token");
+    } else {
+        Ti.App.Properties.setString('parseSessionToken', token);
+    }
 };
 
 ParseClient.prototype.getSessionToken = function() {
@@ -189,7 +194,6 @@ ParseClient.prototype.loginUser = function(_username, _password) {
     return deferred.promise;
 };
 
-
 ParseClient.prototype.logoutUser = function() {
     var deferred = Q.defer();
 
@@ -198,7 +202,6 @@ ParseClient.prototype.logoutUser = function() {
     var params = {
         method : "POST"
     };
-
 
     this._request(url, params, null).then(function(_response) {
         var response = _response.response;
@@ -352,7 +355,7 @@ ParseClient.prototype.sendPush = function(_params, callback) {
  * @param {Object} callback
  */
 ParseClient.prototype._request = function(url, params, callback) {
-    
+
     console.log(params);
 
     var Q = require('q');
@@ -384,7 +387,7 @@ ParseClient.prototype._request = function(url, params, callback) {
         params.headers['Content-Type'] = 'application/json';
     }
     params.headers['Accept'] = params.headers['Accept'] || 'application/json';
-    
+
     if (parse.getSessionToken()) {
         params.headers['X-Parse-Session-Token'] = parse.getSessionToken();
     }
@@ -431,17 +434,17 @@ ParseClient.prototype._request = function(url, params, callback) {
     };
 
     // @TODO find a better solution...
-    // when urlparams has "where" encodeData function not working properly. 
+    // when urlparams has "where" encodeData function not working properly.
     // Below if statement code will make this query call.
     if (params.urlparams && params.urlparams.where) {
-        
+
         // save the where stuff
         var whereParams = params.urlparams.where;
         delete params.urlparams['where'];
-        
+
         // encode the rest of the url
         params.url = encodeData(params.urlparams, params.url);
-        
+
         // add the where stuff to the url
         params.url = params.url + "&" + "where=" + JSON.stringify(whereParams);
     } else {
@@ -479,4 +482,4 @@ function encodeData(_params, _url) {
 }
 
 var parse = new ParseClient();
-module.exports = parse; 
+module.exports = parse;
