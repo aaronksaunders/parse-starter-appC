@@ -188,6 +188,8 @@ ParseClient.prototype.loginUser = function(_username, _password) {
 
     return deferred.promise;
 };
+
+
 ParseClient.prototype.logoutUser = function() {
     var deferred = Q.defer();
 
@@ -196,6 +198,7 @@ ParseClient.prototype.logoutUser = function() {
     var params = {
         method : "POST"
     };
+
 
     this._request(url, params, null).then(function(_response) {
         var response = _response.response;
@@ -376,13 +379,14 @@ ParseClient.prototype._request = function(url, params, callback) {
     params.headers = params.headers || {};
     params.headers['X-Parse-Application-Id'] = Ti.App.Properties.getString('Parse_AppId');
     params.headers['X-Parse-REST-API-Key'] = Ti.App.Properties.getString('Parse_RESTAPIKey');
-    //params.headers['X-Parse-Revocable-Session'] = 1;
+    params.headers['X-Parse-Revocable-Session'] = 1;
     if (!params.headers['Content-Type']) {
         params.headers['Content-Type'] = 'application/json';
     }
     params.headers['Accept'] = params.headers['Accept'] || 'application/json';
-    if (!('login' in params) || !params.login) {
-        params.headers['X-Parse-Session-Token'] = this.getSessionToken();
+    
+    if (parse.getSessionToken()) {
+        params.headers['X-Parse-Session-Token'] = parse.getSessionToken();
     }
 
     // Need to clear some properties depending on method
@@ -392,7 +396,7 @@ ParseClient.prototype._request = function(url, params, callback) {
         if (params.type === 'image') {
             params.body = params.body;
         } else {
-            params.body = JSON.stringify(params.body);
+            params.body = params.body ? JSON.stringify(params.body) : null;
         }
         params.query = null;
     }
