@@ -4,6 +4,9 @@
         <!-- the tabs -->
         <Tab title="Tutor Session" icon="KS_nav_ui.png">
             <Window class="container">
+                <RightNavButton platform="ios">
+                    <Button id="logoutBtn">Logout</Button>
+                </RightNavButton>
                 <View id="sessionInputWrapper">
                     <TextField class="sessionInput" id="sessionName" hintText="Session Name"></TextField>
                     <TextField class="sessionInput" id="sessionLocation" hintText="Session Location"></TextField>
