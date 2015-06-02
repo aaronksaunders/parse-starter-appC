@@ -4,8 +4,8 @@
             <View id='loginAcctView'  class='inputView visible'>
                 <Label id='accountText'></Label>
                 <View id="cavContainer" >
-                    <TextField id="login_email" class='tfWrapper' />
-                    <TextField id="login_password" class='tfWrapper' />
+                    <TextField id="login_email" class='tfWrapper'></TextField>
+                    <TextField id="login_password" class='tfWrapper' ></TextField>
                     <View class="centerHelper">
                         <Button id="doLoginBtn" title="Login" onClick="handleLoginClick"/>
                         <Button id="doShowCreateAccountBtn" title="Create Account" onClick="handleShowAcctClick"/>

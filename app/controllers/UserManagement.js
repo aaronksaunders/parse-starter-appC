@@ -1,6 +1,10 @@
 var args = arguments[0] || {};
 // function to call after login or user created
 var callback = args.callback;
+
+var parseService = Alloy.Globals.parseService;
+
+
 /**
  *
  */
@@ -8,16 +12,19 @@ function handleLoginClick(_event) {
 
     Ti.API.debug('clicked: ' + _event.source.id);
 
-    var aUser = Alloy.createModel('User');
-    aUser.login($.login_email.value, $.login_password.value).then(function(_model) {
+    return parseService.loginUser($.login_email.value, $.login_password.value).then(function(_result) {
+        console.log("logged in user successfully: " + JSON.stringify(_result, null, 2));
         // Do stuff after successful login.
         Alloy.Globals.loggedIn = true;
-        Alloy.Globals.CURRENT_USER = _model;
-        callback && callback(_model);
+        Alloy.Globals.CURRENT_USER = _result;
+        callback && callback(_result);
     }, function(_error) {
         var errorMsg = JSON.stringify(_error);
         alert(_error.message);
         Ti.API.error('Error: ' + errorMsg);
+        callback && callback({
+            error : _error
+        });
     });
 }
 
@@ -65,7 +72,7 @@ function handleCreateAccountClick() {
         password : $.acct_password.value,
         password_confirmation : $.acct_password_confirmation.value,
     };
-    
+
     var user = Alloy.createModel('User');
     user.createAccount(params).then(function(_model) {
         // Do stuff after successful creation of user.
