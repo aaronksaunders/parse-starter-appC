@@ -147,6 +147,9 @@ function doLoginSuccess() {
 
         updateList(_sessions.response.results);
 
+        // set the title on the logout/login button
+        $.logoutBtn.title = "Logout";
+
         // open the main view of index.js, which is the tab
         $.index.open();
 
@@ -163,9 +166,10 @@ function loginUser() {
         return doLoginSuccess();
     }, function(_error) {
         Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
-        alert("Check Your Username/Password\n" +  _error.error.error);
+        alert("Check Your Username/Password\n" + _error.error.error);
 
-        //  loginUser();
+        // set the title on the logout/login button
+        $.logoutBtn.title = "Login";
     });
 }
 
@@ -177,6 +181,9 @@ parseService.restoreUser().then(function(_result) {
     Ti.API.error('ERROR: ' + JSON.stringify(_error, null, 2));
     console.log("no  user found" + _error.error);
 
+    // set the title on the logout/login button
+    $.logoutBtn.title = "Login";
+
     return loginUser();
 });
 
@@ -186,6 +193,10 @@ $.logoutBtn.addEventListener('click', doLogout);
 function doLogout() {
     parseService.logoutUser().then(function(_result) {
         console.log("logged out user successfully: " + JSON.stringify(_result, null, 2));
+
+        // set the title on the logout/login button
+        $.logoutBtn.title = "Login";
+
     }, function(_error) {
         Ti.API.error('ERROR: ' + _error.error);
         alert("Error Logging Out User\n" + _error.error.error);
