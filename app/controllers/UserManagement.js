@@ -74,16 +74,15 @@ function handleCreateAccountClick() {
         password_confirmation : $.acct_password_confirmation.value,
     };
 
-    var user = Alloy.createModel('User');
-    user.createAccount(params).then(function(_model) {
+
+    parseService.createUser(params).then(function(_model) {
         // Do stuff after successful creation of user.
         Alloy.Globals.loggedIn = true;
         Alloy.Globals.CURRENT_USER = _model;
         callback && callback(_model);
-    }, function(_error) {
-        var errorMsg = JSON.stringify(_error);
-        alert(_error.message);
-        Ti.API.error('Error: ' + errorMsg);
+    }, function(_errorResponse) {
+        alert(_errorResponse.error.error);
+        Ti.API.error('Error: ' + JSON.stringify(_errorResponse.error));
     });
 };
 
