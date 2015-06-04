@@ -140,17 +140,18 @@ ParseClient.prototype.createUser = function(data, callback) {
 		body : data
 	};
 
-	function cb(success, response, code) {
-		if (success === 1) {
-			response = JSON.parse(response);
-			parse.setSessionToken(response.sessionToken);
-			callback(success, response, code);
-		} else {
-			callback(success, response, code);
-		}
-	}
+    var deferred = Q.defer();
 
-	return this._request(url, params, cb);
+    this._request(url, params).then(function(_response) {
+        var response = _response.response;
+        parse.setSessionToken(response.sessionToken);
+        parse.saveUserRecord(response);
+        return deferred.resolve(response);
+    }, function(_error) {
+        return deferred.reject(_error);
+    });
+
+    return deferred.promise;
 };
 
 ParseClient.prototype.getUsers = function(_params, callback) {
