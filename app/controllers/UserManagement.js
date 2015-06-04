@@ -69,6 +69,7 @@ function handleCreateAccountClick() {
         last_name : $.acct_lname.value,
         username : $.acct_email.value,
         email : $.acct_email.value,
+        user_type : "student",
         password : $.acct_password.value,
         password_confirmation : $.acct_password_confirmation.value,
     };
