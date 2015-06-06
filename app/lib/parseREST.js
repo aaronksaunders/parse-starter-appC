@@ -253,7 +253,7 @@ ParseClient.prototype.passwordReset = function(_email, callback) {
 		body : _email
 	};
 
-	return this._request(url, params, callback);
+	return this._request(url, params);
 };
 
 ParseClient.prototype.uploadFile = function(_contentType, _filename, _blob, callback) {
