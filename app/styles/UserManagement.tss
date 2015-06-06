@@ -9,10 +9,13 @@
     borderWidth: '.5em',
     borderColor: 'gray'
 },
+'.tfWrapper[platform=android]': {
+	borderWidth: 1,
+    borderColor: 'gray'
+}
 '.centerHelper': {
     top: '10dp',
     height: Ti.UI.SIZE,
-    width: Ti.UI.SIZE,
     layout: 'horizontal'
 },
 ScrollView: {
@@ -40,6 +43,11 @@ TextField: {
         fontSize: '13dp'
     }
 },
+
+"Button[platform=ios]": {
+	borderWidth: '.4em',
+}
+
 ScrollView: {
     contentHeight: Ti.UI.SIZE,
     contentWidth: Ti.UI.SIZE
@@ -104,11 +112,15 @@ ScrollView: {
     left: '10dp'
 },
 '#doLoginBtn': {
-    left: '0dp'
+    left: '5dp'
 },
 '#doCreateAccountBtn': {
-    left: '0dp'
+    left: '10dp'
 },
 '#doShowCreateAccountBtn': {
-    left: '0dp'
+    left: '20dp'
+}
+
+'#doForgotPasswordBtn': {
+    top: '20dp'
 }

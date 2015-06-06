@@ -1,32 +1,33 @@
 <Alloy>
-    <Window class="container">
-        <ScrollView>
-            <View id='loginAcctView'  class='inputView visible'>
-                <Label id='accountText'></Label>
-                <View id="cavContainer" >
-                    <TextField id="login_email" class='tfWrapper'></TextField>
-                    <TextField id="login_password" class='tfWrapper' ></TextField>
-                    <View class="centerHelper">
-                        <Button id="doLoginBtn" title="Login" onClick="handleLoginClick"/>
-                        <Button id="doShowCreateAccountBtn" title="Create Account" onClick="handleShowAcctClick"/>
-                    </View>
-                </View>
-            </View>
-            <View id='createAcctView' class='inputView not-visible' top='500dp'>
-                <Label id='accountText'></Label>
-                <View id="cavContainer" >
-                    <TextField id="acct_fname" class='tfWrapper' />
-                    <TextField id="acct_lname" class='tfWrapper' />
-                    <TextField id="acct_email" class='tfWrapper' />
-                    <TextField id="acct_password" class='tfWrapper' />
-                    <TextField id="acct_password_confirmation"
-                    class='tfWrapper'/>
-                    <View class="centerHelper" >
-                        <Button id="doCreateAccountBtn" title="Create Account" onClick="handleCreateAccountClick"/>
-                        <Button id="doCancelBtn" title="Cancel" onClick="handleShowLoginClick"/>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>
-    </Window>
+	<Window class="container">
+		<ScrollView>
+			<View id='loginAcctView'  class='inputView visible'>
+				<Label id='accountText'></Label>
+				<View id="cavContainer" >
+					<TextField id="login_email" class='tfWrapper'></TextField>
+					<TextField id="login_password" class='tfWrapper' ></TextField>
+					<View class="centerHelper">
+						<Button id="doLoginBtn" title="Login" onClick="handleLoginClick"/>
+						<Button id="doShowCreateAccountBtn" title="Create Account" onClick="handleShowAcctClick"/>
+					</View>
+					<Button id="doForgotPasswordBtn" title="Forgot Password" onClick="handleForgotPasswordClick"/>
+				</View>
+			</View>
+			<View id='createAcctView' class='inputView not-visible' top='500dp'>
+				<Label id='accountText'></Label>
+				<View id="cavContainer" >
+					<TextField id="acct_fname" class='tfWrapper' />
+					<TextField id="acct_lname" class='tfWrapper' />
+					<TextField id="acct_email" class='tfWrapper' />
+					<TextField id="acct_password" class='tfWrapper' />
+					<TextField id="acct_password_confirmation"
+					class='tfWrapper'/>
+					<View class="centerHelper" >
+						<Button id="doCreateAccountBtn" title="Create Account" onClick="handleCreateAccountClick"/>
+						<Button id="doCancelBtn" title="Cancel" onClick="handleShowLoginClick"/>
+					</View>
+				</View>
+			</View>
+		</ScrollView>
+	</Window>
 </Alloy>
