@@ -6,12 +6,13 @@
     top: '6dp',
     width: '260dp',
     height: '40dp',
-    borderWidth: '.5em',
     borderColor: 'gray'
 },
 '.tfWrapper[platform=android]': {
 	borderWidth: 1,
-    borderColor: 'gray'
+}
+'.tfWrapper[platform=ios]': {
+    borderWidth: '.5em',
 }
 '.centerHelper': {
     top: '10dp',
@@ -32,7 +33,8 @@ TextField: {
     right: '4dp',
     paddingLeft: '4dp',
     backgroundColor: 'white',
-    color: 'black'
+    color: 'black',
+    hintTextColor :  'gray'
 },
 // Default Button Style
 "Button": {
@@ -82,8 +84,6 @@ ScrollView: {
 '#login_password': {
     passwordMask: true,
     hintText: 'password',
-    borderWidth: '.5em',
-    borderColor: 'gray'
 },
 '#cavContainer': {
     top: '20dp',
