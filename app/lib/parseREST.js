@@ -140,18 +140,18 @@ ParseClient.prototype.createUser = function(data, callback) {
 		body : data
 	};
 
-    var deferred = Q.defer();
+	var deferred = Q.defer();
 
-    this._request(url, params).then(function(_response) {
-        var response = _response.response;
-        parse.setSessionToken(response.sessionToken);
-        parse.saveUserRecord(response);
-        return deferred.resolve(response);
-    }, function(_error) {
-        return deferred.reject(_error);
-    });
+	this._request(url, params).then(function(_response) {
+		var response = _response.response;
+		parse.setSessionToken(response.sessionToken);
+		parse.saveUserRecord(response);
+		return deferred.resolve(response);
+	}, function(_error) {
+		return deferred.reject(_error);
+	});
 
-    return deferred.promise;
+	return deferred.promise;
 };
 
 ParseClient.prototype.getUsers = function(_params, callback) {
@@ -302,6 +302,11 @@ ParseClient.prototype.registerPush = function(_params, callback) {
 		Parse = require('eu.rebelcorp.parse');
 
 		Parse.start();
+
+		// Set value on the installation object, the userId, this is done
+		// so we have the ability to send push notifications based on users
+		// and not just devices
+		Parse.putValue('userId', _params.body.userId);
 
 		Parse.enablePush();
 
