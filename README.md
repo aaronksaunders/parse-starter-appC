@@ -174,12 +174,51 @@ The results should look something like this:
 Most of todays newer phones create this amazing high resolution images, for this specific application I have chosen to utilize an Appcelerator module to resize the images by 50% before uploading them to the Parse server. This allow for a much better user experience when working with the images and waiting for them to upload and still you end up with a decent quality photo.
 
 ```Javascript
-var w, h;
-w = _imageData.width * .50;
-h = _imageData.height * .50;
-imageCompressed = ImageFactory.imageAsResized(_imageData, {width : w,height : h});
+if (OS_ANDROID || _imageData.width > 700) {
+    var w,
+        h;
+    w = _imageData.width * .50;
+    h = _imageData.height * .50;
+    imageCompressed = _imageData.imageAsResized(w, h);
+} else {
+    // we do not need to compress here
+    imageCompressed = _imageData;
+}
 ```
-Additional information & documentation on the `ImageFactory` module can be found here [https://github.com/appcelerator-modules/ti.imagefactory](https://github.com/appcelerator-modules/ti.imagefactory)
+Additional information & documentation on the [`Ti.Blob.imageAsResized`](https://docs.appcelerator.com/platform/latest/#!/api/Titanium.Blob-method-imageAsResized) module can be found here  by clicking the link which will direct you to the Appcelerator Documentation.
+
+We also us the Appcelerator blob methods to create a thumbnail image to store with the File object, we use this smaller image to render in the list view to provide better performance for the application. 
+```Javascript
+// create a small thumbnail for display purposes in base64 and save in row
+// this way we don't need to render the huge original image
+thumbBlob = imageCompressed.imageAsThumbnail(128);
+
+// store as a base64 string
+thumbBase64 = Titanium.Utils.base64encode(thumbBlob);
+```
+In Parse, we dont want to create another file object for the thumbnail so we convert it to base64 and save it as a string. See the change in how we save the object below.
+```Javascript
+parseService.uploadFile("image/jpeg", Ti.Platform.createUUID() + ".jpeg", imageCompressed).then(function(_results) {
+    return parseService.createObject('ImageInfo', {
+        "caption" : _results.response.name,
+        "thumbBase64" : thumbBase64 + "", // <== SAVING THUMBNAIL
+        "picture" : {
+            "name" : _results.response.name,
+            "__type" : "File"
+        }
+    }).then(function(_results2) {
+        console.log("FileHelper Object: " + JSON.stringify(_results2));
+
+        return $.photoListView.loadImages();
+    }, function(_error) {
+        console.log("ERROR: " + JSON.stringify(_error));
+    });
+});
+```
+When we need to render the thumbnail in the listview, we decode the base64 string.
+```Javascript
+Titanium.Utils.base64decode(_photos[i].thumbBase64 + "")
+```
 ####Screenshot of PhotoList View Showing Uploading Images in Parse
 [![Appcelerator Alloy](images/PhotoListView.png)](images/PhotoListView.png)
 ----------------------------------
